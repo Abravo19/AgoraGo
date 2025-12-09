@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<!-- page start-->
+<div class="col-sm-8">
+<section class="panel">
+<div class="chat-room-head">
+<h3><i class="fa fa-angle-right"></i> Détails classification PEGI</h3>
+</div>
+<div class="panel-body">
+
+    <table class="table table-striped table-advance table-hover">
+        <tbody>
+            <tr>
+                <thclass="tableau-entete"><i class="fa fa-bullhorn"></i>
+Identif</th>
+                <td>{{ pegi.id }}</td>
+            </tr>
+            <tr>
+                <th>class="tableau-entete"<i class="fa fa-bookmark"></i>
+Âge PEGI</th>
+                <td>{{ pegi.agePegi }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_pegi_index') }}"><button class="btn btn-primary btn-
+xs"><i class="fa fa-share"></i></button></a><a href="{{ path('app_pegi_edit', {'id': pegi.id}) }}"><button class="btn
+btn-primary btn-xs"><i class="fa fa-pencil"></i></button></a>
+{{ include('pegi/_delete_form.html.twig') }}
+</div><!-- fin div panel-body-->
+</section><!-- fin section pegis-->
+</div><!--fin div col-sm-8-->
+{% endblock %}
