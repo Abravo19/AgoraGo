@@ -65,6 +65,9 @@
                     <li>
                         <a href="{{ path('app_participant_index') }}">Participants</a>
                     </li>
+                    <li>
+                        <a href="{{path('app_membre_index')}}">Membres</a>
+                    </li>
                 </ul>
             </li>
             {# Section Clubs d'activités #}
@@ -100,6 +103,7 @@
             </li>
 
             {# Section Membres #}
+            {% if is_granted('ROLE_ADMIN') %}
             <li class="sub-menu">
                 <a {% if menuActif is defined and menuActif == 'Membres' %}class="active"{% endif %}
                    href="javascript:;">
@@ -115,7 +119,7 @@
                     <li><a href="index.php">sous-menu 5</a></li>
                 </ul>
             </li>
-
+            {% endif %}
             {# Section Intervenants #}
             <li class="sub-menu">
                 <a {% if menuActif is defined and menuActif == 'Intervenants' %}class="active"{% endif %}

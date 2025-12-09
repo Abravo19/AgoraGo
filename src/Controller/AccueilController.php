@@ -32,12 +32,12 @@ class AccueilController extends AbstractController
     public function index(SessionInterface $session)
     {
         // Vérification de l'état de connexion de l'utilisateur
-        if ($session->has('idUtilisateur')) {
+        if ($this->getUser()) {
             // Utilisateur connecté : affichage de la page d'accueil
             return $this->render('accueil.html.twig');
         } else {
             // Utilisateur non connecté : redirection vers la page de connexion
-            return $this->redirectToRoute('connexion');
+            return $this->render('security/login.html.twig');
         }
     }
 }
