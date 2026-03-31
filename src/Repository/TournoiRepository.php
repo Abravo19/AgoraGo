@@ -17,7 +17,8 @@ class TournoiRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Tournoi[]
+     * Dashboard via SQL natif
+     * @return array tableau de données brutes
      */
     public function findAllAfterThanDateSQL($datemax): array
     {
@@ -31,42 +32,40 @@ class TournoiRepository extends ServiceEntityRepository
     }
 
     /**
-* @return Tournoi[]
-*/
-public function findAllAfterThanDateDQL($datemax): array
-{
-$entityManager = $this->getEntityManager();
-$query = $entityManager->createQuery(
-'SELECT t
-FROM App\Entity\Tournoi tWHERE t.date >= :datemax
-ORDER BY t.date ASC'
-)->setParameter('datemax', $datemax);
-// retourne un tableau d'objets de type Tournoi
-return $query->getResult();
-}
+     * Dashboard via DQL (Doctrine Query Language)
+     * @return Tournoi[]
+     */
+    public function findAllAfterThanDateDQL($datemax): array
+    {
+        $entityManager = $this->getEntityManager();
+        // ce n'est pas du SQL mais du DQL : Doctrine Query Language
+        // il s'agit d'une requête classique qui référence l'objet au lieu de la table
+        $query = $entityManager->createQuery(
+            'SELECT t
+            FROM App\Entity\Tournoi t
+            WHERE t.date >= :datemax
+            ORDER BY t.date ASC'
+        )->setParameter('datemax', $datemax);
 
-    //    /**
-    //     * @return Toirnoi[] Returns an array of Toirnoi objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('t')
-    //            ->andWhere('t.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('t.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+        // retourne un tableau d'objets de type Tournoi
+        return $query->getResult();
+    }
 
-    //    public function findOneBySomeField($value): ?Toirnoi
-    //    {
-    //        return $this->createQueryBuilder('t')
-    //            ->andWhere('t.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    /**
+     * Dashboard via QueryBuilder
+     * @return Tournoi[]
+     */
+    public function findAllAfterThanDateQB($datemax): array
+    {
+        // ce n'est pas du SQL mais QueryBuilder
+        $qb = $this->createQueryBuilder('t')
+            ->where('t.date >= :datemax')
+            ->setParameter('datemax', $datemax)
+            ->orderBy('t.date', 'ASC');
+
+        $query = $qb->getQuery();
+
+        // retourne un tableau d'objets de type Tournoi
+        return $query->getResult();
+    }
 }

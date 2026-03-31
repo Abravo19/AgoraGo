@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LoginTrace{% endblock %}
+
+{% block body %}
+    <h1>LoginTrace</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ login_trace.id }}</td>
+            </tr>
+            <tr>
+                <th>Username</th>
+                <td>{{ login_trace.username }}</td>
+            </tr>
+            <tr>
+                <th>IpAddress</th>
+                <td>{{ login_trace.ipAddress }}</td>
+            </tr>
+            <tr>
+                <th>Message</th>
+                <td>{{ login_trace.message }}</td>
+            </tr>
+            <tr>
+                <th>Success</th>
+                <td>{{ login_trace.success ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>LoggedAt</th>
+                <td>{{ login_trace.loggedAt ? login_trace.loggedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_login_trace_index') }}">back to list</a>
+
+    <a href="{{ path('app_login_trace_edit', {'id': login_trace.id}) }}">edit</a>
+
+    {{ include('login_trace/_delete_form.html.twig') }}
+{% endblock %}
