@@ -12,9 +12,7 @@ class PlateformeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('libPlateforme', null, [
-                'label' => 'Nom de la plateforme'
-            ])
+            ->add('libPlatforme')
         ;
     }
 

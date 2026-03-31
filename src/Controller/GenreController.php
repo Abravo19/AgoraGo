@@ -18,7 +18,8 @@ final class GenreController extends AbstractController
     public function index(GenreRepository $genreRepository): Response
     {
         return $this->render('genre/index.html.twig', [
-            'genres' => $genreRepository->findAll(), 'menuActif' => 'Jeux',
+            'genres' => $genreRepository->findAll(),
+            'menuActif' => 'Jeux',
         ]);
     }
 

@@ -24,7 +24,7 @@ class Participant
     #[ORM\Column(length: 14)]
     private ?string $telephone = null;
 
-    #[ORM\Column(length: 100, nullable: true)]
+    #[ORM\Column(length: 100)]
     private ?string $email = null;
 
     /**
@@ -84,16 +84,11 @@ class Participant
         return $this->email;
     }
 
-    public function setEmail(?string $email): static
+    public function setEmail(string $email): static
     {
         $this->email = $email;
 
         return $this;
-    }
-
-    public function __toString(): string
-    {
-        return $this->prenom . ' ' . $this->nom;
     }
 
     /**
@@ -121,5 +116,10 @@ class Participant
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->prenom . ' ' . $this->nom;
     }
 }

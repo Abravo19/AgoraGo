@@ -19,6 +19,7 @@ final class MarqueController extends AbstractController
     {
         return $this->render('marque/index.html.twig', [
             'marques' => $marqueRepository->findAll(),
+            'menuActif' => 'Jeux',
         ]);
     }
 
@@ -39,6 +40,7 @@ final class MarqueController extends AbstractController
         return $this->render('marque/new.html.twig', [
             'marque' => $marque,
             'form' => $form,
+            'menuActif' => 'Jeux',
         ]);
     }
 
@@ -47,6 +49,7 @@ final class MarqueController extends AbstractController
     {
         return $this->render('marque/show.html.twig', [
             'marque' => $marque,
+            'menuActif' => 'Jeux',
         ]);
     }
 
@@ -65,6 +68,7 @@ final class MarqueController extends AbstractController
         return $this->render('marque/edit.html.twig', [
             'marque' => $marque,
             'form' => $form,
+            'menuActif' => 'Jeux',
         ]);
     }
 

@@ -31,25 +31,25 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 32)]
     private ?string $nomMembre = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 20)]
     private ?string $prenomMembre = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 14, nullable: true)]
     private ?string $telMembre = null;
 
     #[ORM\Column(length: 100)]
     private ?string $mailMembre = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 100)]
     private ?string $rueMembre = null;
 
-    #[ORM\Column(length: 10, nullable: true)]
+    #[ORM\Column(length: 20)]
     private ?string $cpMembre = null;
 
-    #[ORM\Column(length: 100, nullable: true)]
+    #[ORM\Column(length: 25)]
     private ?string $villeMembre = null;
 
     public function getId(): ?int
@@ -162,7 +162,7 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->telMembre;
     }
 
-    public function setTelMembre(string $telMembre): static
+    public function setTelMembre(?string $telMembre): static
     {
         $this->telMembre = $telMembre;
 
@@ -198,7 +198,7 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->cpMembre;
     }
 
-    public function setCpMembre(?string $cpMembre): static
+    public function setCpMembre(string $cpMembre): static
     {
         $this->cpMembre = $cpMembre;
 
@@ -210,7 +210,7 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->villeMembre;
     }
 
-    public function setVilleMembre(?string $villeMembre): static
+    public function setVilleMembre(string $villeMembre): static
     {
         $this->villeMembre = $villeMembre;
 

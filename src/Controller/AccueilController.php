@@ -17,6 +17,7 @@ namespace App\Controller;
 require_once 'modele/class.PdoJeux.inc.php';
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class AccueilController extends AbstractController
@@ -29,15 +30,23 @@ class AccueilController extends AbstractController
      * @return Response Vue appropriée selon l'état de connexion
      */
     #[Route('/', name: 'accueil')]
-    public function index(SessionInterface $session)
+    public function index(SessionInterface $session): Response
     {
         // Vérification de l'état de connexion de l'utilisateur
+        // Priorité au système Symfony Security
         if ($this->getUser()) {
-            // Utilisateur connecté : affichage de la page d'accueil
-            return $this->render('accueil.html.twig');
+            // Utilisateur connecté via Symfony Security : affichage de la page d'accueil
+            return $this->render('accueil.html.twig', [
+                'menuActif' => 'Accueil',
+            ]);
+        } elseif ($session->has('idUtilisateur')) {
+            // Utilisateur connecté via l'ancien système de session : affichage de la page d'accueil
+            return $this->render('accueil.html.twig', [
+                'menuActif' => 'Accueil',
+            ]);
         } else {
-            // Utilisateur non connecté : redirection vers la page de connexion
-            return $this->render('security/login.html.twig');
+            // Utilisateur non connecté : redirection vers la page de connexion Symfony
+            return $this->redirectToRoute('app_login');
         }
     }
 }

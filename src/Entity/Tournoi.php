@@ -25,7 +25,6 @@ class Tournoi
     private ?\DateTime $dateCreation = null;
 
     #[ORM\ManyToOne(inversedBy: 'tournois')]
-    #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private ?CatTournois $categorie = null;
 
     /**
@@ -33,6 +32,11 @@ class Tournoi
      */
     #[ORM\ManyToMany(targetEntity: Participant::class, inversedBy: 'tournois')]
     private Collection $participants;
+
+    public function __construct()
+    {
+        $this->participants = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -75,13 +79,7 @@ class Tournoi
         return $this;
     }
 
-    public function __construct()
-    {
-        $this->dateCreation = new \DateTime();
-        $this->participants = new ArrayCollection();
-    }
-
-        public function getCategorie(): ?CatTournois
+    public function getCategorie(): ?CatTournois
     {
         return $this->categorie;
     }

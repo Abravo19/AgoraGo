@@ -47,33 +47,37 @@ class CatTournois
     }
 
     /**
-* @return Collection<int, Tournoi>
-*/
-public function getTournois(): Collection
-{
-    return $this->tournois;
-}
+     * @return Collection<int, Tournoi>
+     */
+    public function getTournois(): Collection
+    {
+        return $this->tournois;
+    }
 
-public function addTournoi(Tournoi $tournoi): static
-{
-if (!$this->tournois->contains($tournoi)) {
-$this->tournois->add($tournoi);
-$tournoi->setCategorie($this);}
-return $this;
-}
-public function removeTournoi(Tournoi $tournoi): static
-{
-if ($this->tournois->removeElement($tournoi)) {
-// set the owning side to null (unless already changed)
-if ($tournoi->getCategorie() === $this) {
-$tournoi->setCategorie(null);
-}
-}
-return $this;
-}
-public function __toString(): string
-{
-    return $this->libelle;
-}
+    public function addTournoi(Tournoi $tournoi): static
+    {
+        if (!$this->tournois->contains($tournoi)) {
+            $this->tournois->add($tournoi);
+            $tournoi->setCategorie($this);
+        }
 
+        return $this;
+    }
+
+    public function removeTournoi(Tournoi $tournoi): static
+    {
+        if ($this->tournois->removeElement($tournoi)) {
+            // set the owning side to null (unless already changed)
+            if ($tournoi->getCategorie() === $this) {
+                $tournoi->setCategorie(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function _toString(): string
+    {
+        return $this->libelle;
+    }
 }

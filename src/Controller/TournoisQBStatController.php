@@ -8,16 +8,16 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\TournoiRepository;
 
-class TournoisDQLStatController extends AbstractController
+class TournoisQBStatController extends AbstractController
 {
-    #[Route('/statDql', name: 'app_stat_dql_tournoi')]
-    public function indexDQL(Request $request, TournoiRepository $tournoiRepository): Response
+    #[Route('/statQb', name: 'app_stat_qb_tournoi')]
+    public function indexQB(Request $request, TournoiRepository $tournoiRepository): Response
     {
         // On récupère une date passée en GET ou on met une valeur par défaut
         $datemax = $request->query->get('datemax', '2025-01-01');
 
-        // Appel à la méthode DQL du repository
-        $tournois = $tournoiRepository->findAllAfterThanDateDQL($datemax);
+        // Appel à la méthode Query Builder du repository
+        $tournois = $tournoiRepository->findAllAfterThanDateQB($datemax);
 
         // Transformation du résultat (objets Tournoi) en tableau exploitable pour la vue
         $stats = [];
@@ -32,7 +32,7 @@ class TournoisDQLStatController extends AbstractController
         return $this->render('tournoi_stat/sql.html.twig', [
             'stats' => $stats,
             'datemax' => $datemax,
-            'mode' => 'DQL',
+            'mode' => 'Query Builder',
             'menuActif' => 'Tournois',
         ]);
     }

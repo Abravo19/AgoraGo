@@ -9,34 +9,33 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[Route('/membre')]
-final class MembreController extends AbstractController
+#[Route('/membres')]
+#[IsGranted('ROLE_ADMIN')]
+class MembreController extends AbstractController
 {
     #[Route('/', name: 'app_membre_index', methods: ['GET'])]
     public function index(MembreRepository $membreRepository): Response
     {
         return $this->render('membre/index.html.twig', [
-            'membres' => $membreRepository->findAll(), 'menuActif' => 'Membres',
+            'membres' => $membreRepository->findAll(),
+            'menuActif' => 'Membres',
         ]);
     }
 
     #[Route('/new', name: 'app_membre_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $unPasswordHasher): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
         $membre = new Membre();
-        $form = $this->createForm(MembreType::class, $membre);
+        $form = $this->createForm(MembreType::class, $membre, ['is_edit' => false]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-        $passwordSaisi = $membre->getPassword();
-            
-            $passwordSaisi = $membre->getPassword();
-            $membre->setPassword($unPasswordHasher->hashPassword($membre, $passwordSaisi));
-
+            $passwordSaisi = $form->get('password')->getData();
+            $membre->setPassword($passwordHasher->hashPassword($membre, $passwordSaisi));
             $entityManager->persist($membre);
             $entityManager->flush();
 
@@ -46,6 +45,7 @@ final class MembreController extends AbstractController
         return $this->render('membre/new.html.twig', [
             'membre' => $membre,
             'form' => $form,
+            'menuActif' => 'Membres',
         ]);
     }
 
@@ -54,20 +54,21 @@ final class MembreController extends AbstractController
     {
         return $this->render('membre/show.html.twig', [
             'membre' => $membre,
+            'menuActif' => 'Membres',
         ]);
     }
 
     #[Route('/{id}/edit', name: 'app_membre_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Membre $membre, EntityManagerInterface $entityManager, UserPasswordHasherInterface $unPasswordHasher): Response
+    public function edit(Request $request, Membre $membre, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
-        $form = $this->createForm(MembreType::class, $membre);
+        $form = $this->createForm(MembreType::class, $membre, ['is_edit' => true]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
-            $passwordSaisi = $membre->getPassword();
-            $membre->setPassword($unPasswordHasher->hashPassword($membre, $passwordSaisi));
-
+            $passwordSaisi = $form->get('password')->getData();
+            if ($passwordSaisi !== null && $passwordSaisi !== '') {
+                $membre->setPassword($passwordHasher->hashPassword($membre, $passwordSaisi));
+            }
             $entityManager->flush();
 
             return $this->redirectToRoute('app_membre_index', [], Response::HTTP_SEE_OTHER);
@@ -76,6 +77,7 @@ final class MembreController extends AbstractController
         return $this->render('membre/edit.html.twig', [
             'membre' => $membre,
             'form' => $form,
+            'menuActif' => 'Membres',
         ]);
     }
 
