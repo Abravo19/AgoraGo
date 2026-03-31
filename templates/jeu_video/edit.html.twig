@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
-
 {% block body %}
+<!-- page start-->
 <div class="col-sm-8">
     <section class="panel">
         <div class="chat-room-head">
@@ -9,11 +9,11 @@
         </div>
         <div class="panel-body">
 
-    {{ include('marque/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('jeu_video/_form.html.twig', {'button_label': 'Enregistrer'}) }}
 
-    <a href="{{ path('app_marque_index') }}">b<button class="btn btn-primary btn-xs"><i class="fa fa-share"></i></button></a>
+    <a href="{{ path('app_jeu_video_index') }}"><button class="btn btn-primary btn-xs"><i class="fa fa-share"></i></button></a>
 
-    {{ include('marque/_delete_form.html.twig') }}
+    {{ include('jeu_video/_delete_form.html.twig') }}
         </div>
     <!-- fin du div panel-body-->
     </section>

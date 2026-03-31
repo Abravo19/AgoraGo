@@ -1,32 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <!-- page start--><div class="col-sm-8">
-<section class="panel">
-<div class="chat-room-head">
-<h3><i class="fa fa-angle-right"></i> Gérer les marques</h3>
-</div>
-<div class="panel-body">
 
-    <table class="table" table-striped table-advance table-hover"> 
+{% block body %}
+<div class="col-sm-8">
+    <section class="panel">
+        <div class="chat-room-head">
+            <h3><i class="fa fa-angle-right"></i> Gérer les catégories marques</h3>
+        </div>
+        <div class="panel-body">
+    <table class="table" "table-striped table-advance table-hiver">
         <thead>
-            <tr>
-                <th>class="tableau-entete"</th>
-                <th><i class="fa fa-bullhorn"></i> Identif</th>
-                <th><i class="fa fa-bookmark"></i> Nom</th>
+            <tr class="tableau-entete">  
+                <th><i class="fa fa-bullhorn"></id>Id</th>
+                <th><i class="fa fa-bookmark"></i>LibMarque</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
         {% for marque in marques %}
             <tr>
                 <td>{{ marque.id }}</td>
-                <td>{{ marque.nomMarque }}</td>
+                <td>{{ marque.libMarque }}</td>
                 <td>
-                    <a href="{{path('app_marque_show',{'id': marque.id})}}"><button
-class="btn btn-primary btn-xs"><i class="fa fa-tasks"></i></button></a>
-<a href="{{path('app_marque_edit',{'id': marque.id})}}"><button
-class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></a>
-</td>
+                    <a href="{{ path('app_marque_show', {'id': marque.id}) }}"><button class="btn btn-primary btn-xs"><i class="fa fa-tasks"></i></button></a>
+                    <a href="{{ path('app_marque_edit', {'id': marque.id}) }}"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></a>
                 </td>
             </tr>
         {% else %}
@@ -37,9 +34,8 @@ class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></a>
         </tbody>
     </table>
 
-    <a href="{{ path('app_marque_new') }}"><button class="btn btn-primary btn-
-xs"><i class="fa fa-plus"></i></button></a>
-</div><!-- fin div panel-body-->
-</section><!-- fin section marques-->
-</div><!--fin div col-sm-8-->
+    <a href="{{ path('app_marque_new') }}"><button class="btn btn-primary btn-xs"><i class="fa fa-plus"></i></button></a>
+    </div>
+</section>
+</div>
 {% endblock %}

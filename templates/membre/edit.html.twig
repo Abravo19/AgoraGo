@@ -1,13 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Membre{% endblock %}
-
 {% block body %}
-    <h1>Edit Membre</h1>
+<!-- page start-->
+<div class="col-sm-8">
+    <section class="panel">
+        <div class="chat-room-head">
+            <h3><i class="fa fa-angle-right"></i> Modifier un membre</h3>
+        </div>
+        <div class="panel-body">
 
-    {{ include('membre/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('membre/_form.html.twig', {'button_label': 'Enregistrer'}) }}
 
-    <a href="{{ path('app_membre_index') }}">back to list</a>
+    <a href="{{ path('app_membre_index') }}"><button class="btn btn-primary btn-xs"><i class="fa fa-share"></i> Retour</button></a>
 
     {{ include('membre/_delete_form.html.twig') }}
+    </div>
+    </section>
+</div>
 {% endblock %}
