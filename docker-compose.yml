@@ -13,18 +13,19 @@ services:
       - db
 
   db:
-    image: mysql:8.0
-    container_name: mysql_8
+    image: postgres:15-alpine
+    container_name: postgres_db
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      # Aligne avec DATABASE_URL défini dans .env (utilisateur app / base agoraorm)
-      MYSQL_DATABASE: agoraorm
-      MYSQL_USER: app
-      MYSQL_PASSWORD: app
+      POSTGRES_DB: agoraorm
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
     ports:
-      - "3306:3306"
+      - "5432:5432"
     volumes:
-      - db_data:/var/lib/mysql
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
