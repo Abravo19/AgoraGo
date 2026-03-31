@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/login/trace')]
 final class LoginTraceController extends AbstractController
 {
-    #[Route(name: 'app_login_trace_index', methods: ['GET'])]
+    #[Route('/', name: 'app_login_trace_index', methods: ['GET'])]
     public function index(LoginTraceRepository $loginTraceRepository): Response
     {
         return $this->render('login_trace/index.html.twig', [
