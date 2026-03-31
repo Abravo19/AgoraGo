@@ -12,14 +12,14 @@
  */
 
 // ====================================
-// ===== INITIALIZACIÓN GENERAL =====
+// ===== INITIALISATION GÉNÉRALE =====
 // ====================================
-
-// La session est gérée automatiquement par Symfony
-// Ne pas appeler session_start() ici pour éviter le conflit avec Symfony
 
 // Configuration des erreurs (masquer les dépréciations temporairement)
 error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
+
+// Note: La session est gérée automatiquement par Symfony
+// Ne pas démarrer la session manuellement ici pour éviter les conflits
 
 // Chargement de l'autoloader Composer
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -104,5 +104,3 @@ $request = \Symfony\Component\HttpFoundation\Request::createFromGlobals();
 $response = $kernel->handle($request);
 $response->send();
 $kernel->terminate($request, $response);
-exit;
-?>
