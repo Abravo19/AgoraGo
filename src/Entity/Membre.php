@@ -31,19 +31,19 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 32)]
     private ?string $nomMembre = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 20)]
     private ?string $prenomMembre = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 14, nullable: true)]
     private ?string $telMembre = null;
 
     #[ORM\Column(length: 100)]
     private ?string $mailMembre = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $rueMembre = null;
 
     #[ORM\Column(length: 10, nullable: true)]
@@ -127,10 +127,10 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
         return $data;
     }
 
-    #[\Deprecated]
     public function eraseCredentials(): void
     {
-        // @deprecated, to be removed when upgrading to Symfony 8
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 
     public function getNomMembre(): ?string

@@ -28,7 +28,7 @@ class MembreFixtures extends Fixture
             $membre->setPassword($this->passwordHasher->hashPassword($membre, 'userdemo'));
             $membre->setRueMembre($this->faker->streetAddress);
             $membre->setVilleMembre($this->faker->city);
-            $membre->setCpMembre($this->faker->numberBetween(111111, 999999));
+            $membre->setCpMembre((string) $this->faker->numberBetween(10000, 99999));
             $manager->persist($membre);
         }
         $manager->flush();

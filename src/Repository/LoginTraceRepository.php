@@ -8,6 +8,12 @@ use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @extends ServiceEntityRepository<LoginTrace>
+ *
+ * @method LoginTrace|null find($id, $lockMode = null, $lockVersion = null)
+ * @method LoginTrace|null findOneBy(array $criteria, array $orderBy = null)
+ * @method LoginTrace[]    findAll()
+ * @method LoginTrace[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method \Doctrine\ORM\QueryBuilder createQueryBuilder(string $alias, string $indexBy = null)
  */
 class LoginTraceRepository extends ServiceEntityRepository
 {
@@ -22,13 +28,7 @@ class LoginTraceRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-    #[Route('/', name: 'app_login_trace_index', methods: ['GET'])]
-    public function index(LoginTraceRepository $loginTraceRepository): Response
-    {
-        return $this->render('login_trace/index.html.twig', [
-            'login_traces' => $loginTraceRepository->findAllOrderedByDateDesc(),
-        ]);
-    }
+
 
 
 
